@@ -42,8 +42,7 @@ const uint8_t skyport_cmd_minus     = 0x02;
 */
 
 void check_radio(void)                                // Receiver role: Does nothing!  All the work is in IRQ
-{
-  
+{ 
   bool tx,fail,rx;
   uint8_t data[2];
   static unsigned long delta;
@@ -162,7 +161,7 @@ void setup() {
     Serial.println("-----------------------------------------------------------------------");
    }
   else {
-    Serial.println("channcel not accepted - probably no radio found");  
+    Serial.println("channel not accepted - probably no radio found");  
   }
 }
 
