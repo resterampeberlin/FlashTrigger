@@ -6045,6 +6045,58 @@ Source: www.kingbright.com</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="supply1">
+<description>&lt;b&gt;Supply Symbols&lt;/b&gt;&lt;p&gt;
+ GND, VCC, 0V, +5V, -5V, etc.&lt;p&gt;
+ Please keep in mind, that these devices are necessary for the
+ automatic wiring of the supply signals.&lt;p&gt;
+ The pin name defined in the symbol is identical to the net which is to be wired automatically.&lt;p&gt;
+ In this library the device names are the same as the pin names of the symbols, therefore the correct signal names appear next to the supply symbols in the schematic.&lt;p&gt;
+ &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+</packages>
+<symbols>
+<symbol name="VCC">
+<wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<text x="-2.54" y="-2.54" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="VCC" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+</symbol>
+<symbol name="GND">
+<wire x1="-1.905" y1="0" x2="1.905" y2="0" width="0.254" layer="94"/>
+<text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="VCC" prefix="P+">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="VCC" symbol="VCC" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="GND" prefix="GND">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="1" symbol="GND" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6064,6 +6116,12 @@ Source: www.kingbright.com</description>
 <part name="TEST" library="switch-misc" deviceset="PVA1R" device=""/>
 <part name="LED1" library="led" deviceset="LED" device="3MM"/>
 <part name="R2" library="resistor" deviceset="R-EU_" device="0207/10" value="330"/>
+<part name="P+1" library="supply1" deviceset="VCC" device=""/>
+<part name="P+2" library="supply1" deviceset="VCC" device=""/>
+<part name="GND1" library="supply1" deviceset="GND" device=""/>
+<part name="GND2" library="supply1" deviceset="GND" device=""/>
+<part name="GND3" library="supply1" deviceset="GND" device=""/>
+<part name="GND4" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -6079,6 +6137,12 @@ Source: www.kingbright.com</description>
 <instance part="TEST" gate="1" x="154.94" y="53.34" rot="R270"/>
 <instance part="LED1" gate="G$1" x="109.22" y="53.34"/>
 <instance part="R2" gate="G$1" x="109.22" y="60.96" rot="R90"/>
+<instance part="P+1" gate="VCC" x="111.76" y="93.98"/>
+<instance part="P+2" gate="VCC" x="58.42" y="-2.54"/>
+<instance part="GND1" gate="1" x="73.66" y="-7.62"/>
+<instance part="GND2" gate="1" x="86.36" y="81.28"/>
+<instance part="GND3" gate="1" x="111.76" y="81.28"/>
+<instance part="GND4" gate="1" x="109.22" y="45.72"/>
 </instances>
 <busses>
 </busses>
@@ -6128,6 +6192,8 @@ Source: www.kingbright.com</description>
 <pinref part="PCB1" gate="G$1" pin="5V"/>
 <wire x1="71.12" y1="5.08" x2="71.12" y2="-5.08" width="0.1524" layer="91"/>
 <label x="71.12" y="-5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="P+2" gate="VCC" pin="VCC"/>
+<wire x1="58.42" y1="-5.08" x2="71.12" y2="-5.08" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="3,3VREGULATOR" gate="1" pin="1"/>
@@ -6139,6 +6205,8 @@ Source: www.kingbright.com</description>
 <wire x1="116.84" y1="88.9" x2="127" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="116.84" y1="91.44" x2="116.84" y2="88.9" width="0.1524" layer="91"/>
 <junction x="116.84" y="88.9"/>
+<pinref part="P+1" gate="VCC" pin="VCC"/>
+<wire x1="111.76" y1="91.44" x2="111.76" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="3,3V" class="0">
@@ -6155,28 +6223,26 @@ Source: www.kingbright.com</description>
 </net>
 <net name="GND" class="0">
 <segment>
-<pinref part="3,3VREGULATOR" gate="1" pin="4"/>
-<wire x1="127" y1="83.82" x2="111.76" y2="83.82" width="0.1524" layer="91"/>
-<label x="119.38" y="83.82" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="OK1" gate="A" pin="C"/>
-<pinref part="LED1" gate="G$1" pin="C"/>
-<wire x1="109.22" y1="48.26" x2="116.84" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="48.26" x2="121.92" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="48.26" x2="116.84" y2="0" width="0.1524" layer="91"/>
-<junction x="116.84" y="48.26"/>
 <pinref part="PCB1" gate="G$1" pin="GND.."/>
-<wire x1="73.66" y1="5.08" x2="73.66" y2="0" width="0.1524" layer="91"/>
-<label x="73.66" y="-5.08" size="1.778" layer="95" rot="R90"/>
-<wire x1="73.66" y1="0" x2="73.66" y2="-5.08" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="0" x2="73.66" y2="0" width="0.1524" layer="91"/>
-<junction x="73.66" y="0"/>
+<wire x1="73.66" y1="5.08" x2="73.66" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="GND1" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="NRF24L01+" gate="G$1" pin="1"/>
 <wire x1="78.74" y1="83.82" x2="86.36" y2="83.82" width="0.1524" layer="91"/>
-<label x="81.28" y="83.82" size="1.778" layer="95"/>
+<pinref part="GND2" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GND3" gate="1" pin="GND"/>
+<pinref part="3,3VREGULATOR" gate="1" pin="4"/>
+<wire x1="111.76" y1="83.82" x2="127" y2="83.82" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="OK1" gate="A" pin="C"/>
+<pinref part="LED1" gate="G$1" pin="C"/>
+<wire x1="109.22" y1="48.26" x2="121.92" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="GND4" gate="1" pin="GND"/>
+<junction x="109.22" y="48.26"/>
 </segment>
 </net>
 <net name="IRQ" class="0">
