@@ -20,6 +20,7 @@
 #define CE_PIN        9
 #define CS_PIN        10
 #define INT_PIN       2
+#define SOL_PIN       7       // sign of life
 
 RF24 radio(CE_PIN, CS_PIN);
 
@@ -89,7 +90,6 @@ void check_radio(void)                                // Receiver role: Does not
      
       // Trigger flash
       if (data[1] == skyport_cmd_trigger) {
-        Serial.print("+");
         digitalWrite(TRIGGER_PIN, HIGH);
         
         // wait 100 us (16 x NOP @ 16Mhz)
@@ -102,7 +102,6 @@ void check_radio(void)                                // Receiver role: Does not
         }
 
         digitalWrite(TRIGGER_PIN, LOW);
-        Serial.print("-");
       }
 
       Serial.println("");
@@ -123,6 +122,9 @@ void setup() {
   pinMode(TRIGGER_PIN, OUTPUT); 
   digitalWrite(TRIGGER_PIN, LOW);
 
+  pinMode(SOL_PIN, OUTPUT); 
+  digitalWrite(SOL_PIN, LOW);
+  
   // for stabilty reasons wait 100ms
   delay(100);  
   
@@ -170,6 +172,10 @@ void setup() {
 */
 
 void loop() {
-  Serial.print("*");
-  delay(1000);
+  // blink sign of life LED
+  digitalWrite(SOL_PIN, HIGH);
+  delay(500);
+  
+  digitalWrite(SOL_PIN, LOW);
+  delay(500);
 }
